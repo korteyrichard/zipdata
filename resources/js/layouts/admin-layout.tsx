@@ -37,6 +37,7 @@ const adminNavigation: NavigationItem[] = [
   { name: "Orders", href: route("admin.orders"), icon: "Package", current: route().current("admin.orders") },
   { name: "AFA Orders", href: route("admin.afa-orders"), icon: "FileText", current: route().current("admin.afa-orders") },
   { name: "Transactions", href: route("admin.transactions"), icon: "Receipt", current: route().current("admin.transactions") },
+  { name: "SMS", href: route("admin.sms"), icon: "MessageSquare", current: route().current("admin.sms") },
   { name: "Settings", href: route("profile.edit"), icon: "Settings", current: route().current("profile.edit") || route().current("password.edit") || route().current("appearance") },
 ];
 
