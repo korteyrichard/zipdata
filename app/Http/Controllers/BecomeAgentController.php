@@ -15,21 +15,21 @@ class BecomeAgentController extends Controller
     {
         $user = Auth::user();
         if (!$user) {
-            return redirect()->route('login')->withErrors(['message' => 'Please login to become a dealer.']);
+            return redirect()->route('login')->withErrors(['message' => 'Please login to become an agent.']);
         }
         
-        if ($user->role === 'dealer' || $user->role === 'admin') {
-            return back()->withErrors(['message' => 'You are already a dealer or admin.']);
+        if ($user->role === 'agent' || $user->role === 'dealer' || $user->role === 'admin') {
+            return back()->withErrors(['message' => 'You are already an agent or admin.']);
         }
         
         if ($user->role !== 'customer') {
-            return back()->withErrors(['message' => 'Only customers can become dealers.']);
+            return back()->withErrors(['message' => 'Only customers can become agents.']);
         }
 
-        $reference = 'dealer_' . Str::random(16);
+        $reference = 'agent_' . Str::random(16);
         
         // Calculate 1% transaction fee
-        $registrationFee = 200;
+        $registrationFee = 40;
         $transactionFee = $registrationFee * 0.01;
         $totalAmount = $registrationFee + $transactionFee;
         
@@ -39,15 +39,10 @@ class BecomeAgentController extends Controller
             'order_id' => null,
             'amount' => $registrationFee,
             'status' => 'pending',
-            'type' => 'dealer_fee',
-            'description' => 'Dealer access fee of GHS 200.00 (+ GHS ' . number_format($transactionFee, 2) . ' fee)',
+            'type' => 'agent_fee',
+            'description' => 'Agent access fee of GHS 40.00 (+ GHS ' . number_format($transactionFee, 2) . ' fee)',
             'reference' => $reference,
         ]);
-
-        // Calculate 1% transaction fee
-        $registrationFee = 200;
-        $transactionFee = $registrationFee * 0.01;
-        $totalAmount = $registrationFee + $transactionFee;
         
         // Initialize Paystack payment
         $response = Http::withHeaders([
@@ -61,7 +56,7 @@ class BecomeAgentController extends Controller
             'metadata' => [
                 'user_id' => $user->id,
                 'transaction_id' => $transaction->id,
-                'type' => 'dealer_registration',
+                'type' => 'agent_registration',
                 'actual_amount' => $registrationFee,
                 'transaction_fee' => $transactionFee
             ]
@@ -92,8 +87,8 @@ class BecomeAgentController extends Controller
             $user = \App\Models\User::find($metadata['user_id']);
             
             if ($transaction && $transaction->status === 'pending' && $user && $user->role === 'customer') {
-                // Update user role to dealer
-                $user->role = 'dealer';
+                // Update user role to agent
+                $user->role = 'agent';
                 $user->save();
                 
                 // Update transaction status
@@ -101,6 +96,6 @@ class BecomeAgentController extends Controller
             }
         }
 
-        return redirect()->route('dashboard')->with('success', 'You are now a dealer!');
+        return redirect()->route('dashboard')->with('success', 'You are now an agent!');
     }
 }

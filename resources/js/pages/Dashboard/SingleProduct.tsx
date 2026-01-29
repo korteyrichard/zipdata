@@ -223,7 +223,7 @@ export default function SingleProduct({ auth }: SingleProductProps) {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="px-4 sm:px-8 py-8">
           {/* Product Card - Always Expanded */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden max-w-4xl mx-auto">
+          <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border-2 ${currentNetwork?.color.replace('text-', 'border-')} overflow-hidden max-w-4xl mx-auto`}>
             {/* Network Header */}
             <div className={`${currentNetwork?.bgColor} p-6`}>
               <div className="flex items-center space-x-4">
@@ -242,10 +242,10 @@ export default function SingleProduct({ auth }: SingleProductProps) {
             </div>
 
             {/* Expanded Content */}
-            <div className={`${currentNetwork?.bgColor} p-6 space-y-6`}>
+            <div className="bg-white dark:bg-gray-800 p-6 space-y-6">
               {/* Excel Upload Section */}
               <div>
-                <label className="block text-sm font-medium mb-2 text-white">
+                <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                   Upload CSV File
                 </label>
                 <div className="flex flex-col space-y-3">
@@ -259,7 +259,7 @@ export default function SingleProduct({ auth }: SingleProductProps) {
                   <Button 
                     onClick={handleProcessExcel}
                     disabled={!excelFile || isProcessing}
-                    className="px-6 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded font-medium w-fit"
+                    className={`px-6 py-2 ${currentNetwork?.bgColor} hover:opacity-90 text-white rounded font-medium w-fit`}
                   >
                     {isProcessing ? 'Processing...' : 'Upload CSV'}
                   </Button>
@@ -270,7 +270,7 @@ export default function SingleProduct({ auth }: SingleProductProps) {
               <div>
                 <button 
                   onClick={() => setShowBulkInput(!showBulkInput)}
-                  className="px-4 py-2 bg-gray-800 text-white rounded font-medium mb-3"
+                  className={`px-4 py-2 ${currentNetwork?.bgColor} text-white rounded font-medium mb-3`}
                 >
                   📦 Bulk Text Input Orders
                 </button>
@@ -286,7 +286,7 @@ export default function SingleProduct({ auth }: SingleProductProps) {
                     <Button 
                       onClick={handleProcessBulk}
                       disabled={!bulkNumbers.trim() || isProcessing}
-                      className="px-6 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded font-medium"
+                      className={`px-6 py-2 ${currentNetwork?.bgColor} hover:opacity-90 text-white rounded font-medium`}
                     >
                       {isProcessing ? 'Processing...' : 'Add Bulk to Cart'}
                     </Button>
@@ -297,8 +297,8 @@ export default function SingleProduct({ auth }: SingleProductProps) {
               {/* Single Order Section */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-white">
-                    Beneficiary Phone Number <span className="text-red-300">(Required)</span>
+                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                    Beneficiary Phone Number <span className="text-red-500">(Required)</span>
                   </label>
                   <Input
                     type="tel"
@@ -311,8 +311,8 @@ export default function SingleProduct({ auth }: SingleProductProps) {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-white">
-                    Data Volume <span className="text-red-300">(Required)</span>
+                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                    Data Volume <span className="text-red-500">(Required)</span>
                   </label>
                   <Select value={bundleSize} onValueChange={setBundleSize}>
                     <SelectTrigger className="bg-white text-gray-700">
@@ -341,7 +341,7 @@ export default function SingleProduct({ auth }: SingleProductProps) {
               <Button 
                 onClick={handleAddSingle}
                 disabled={!phoneNumber || !bundleSize || isProcessing}
-                className="w-full py-3 bg-gray-800 hover:bg-gray-900 text-white rounded font-semibold"
+                className={`w-full py-3 ${currentNetwork?.bgColor} hover:opacity-90 text-white rounded font-semibold`}
               >
                 Add to Basket
               </Button>

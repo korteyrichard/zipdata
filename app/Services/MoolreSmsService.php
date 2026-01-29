@@ -14,7 +14,7 @@ class MoolreSmsService
     public function __construct()
     {
         $this->apiKey = config('services.moolre.api_key');
-        $this->senderId = 'Data FTY';
+        $this->senderId = 'OPENDATAGH';
     }
 
     public function sendSms(string $phoneNumber, string $message): bool

@@ -81,7 +81,7 @@ export default function Dashboard({ auth }: DashboardProps) {
                 href={route('become_a_dealer')}
                 className="inline-block px-6 py-2 text-white font-medium rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:text-white hover:-translate-y-0.5 transition-all duration-300"
               >
-                Become A Dealer
+                Become an Agent
               </Link>
             </div>
           </div>
@@ -97,7 +97,7 @@ export default function Dashboard({ auth }: DashboardProps) {
                 <p className="text-white/80 text-sm mb-1">Wallet Balance</p>
                 <p className="text-lg sm:text-lg font-bold text-white">GHS {walletBalance}</p>
               </div>
-              {auth.user.role !== 'dealer' && (
+              {auth.user.role !== 'admin' && (
                 <div className="sm:text-right">
                   <p className="text-white/80 text-sm mb-2">Wallet Top Up</p>
                   <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">

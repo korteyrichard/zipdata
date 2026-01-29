@@ -45,7 +45,7 @@ export default function DashboardLayout({ user, header, children }: DashboardLay
         { name: 'Transactions', href: route('dashboard.transactions'), icon: 'Receipt', current: route().current('dashboard.transactions') },
         { name: 'Wallet', href: route('dashboard.wallet'), icon: 'Wallet', current: route().current('dashboard.wallet') },
         { name: 'Join Community', href: route('dashboard.joinUs'), icon: 'Contact', current: route().current('dashboard.joinUs') },
-        // ...(user.role === 'agent' || user.role === 'dealer' || user.role === 'admin' ? [{ name: 'API Docs', href: route('dashboard.api-docs'), icon: 'Code' as IconName, current: route().current('dashboard.api-docs') }] : []),
+        ...(user.role === 'agent' || user.role === 'dealer' || user.role === 'admin' ? [{ name: 'API Docs', href: route('dashboard.api-docs'), icon: 'Code' as IconName, current: route().current('dashboard.api-docs') }] : []),
         { name: 'Settings', href: route('profile.edit'), icon: 'Settings', current: route().current('profile.edit') || route().current('password.edit') || route().current('appearance') },
         // { name: 'terms', href: route('dashboard.terms'), icon: 'Lock', current: false },
     ];
@@ -83,7 +83,7 @@ export default function DashboardLayout({ user, header, children }: DashboardLay
             <div className="flex items-center flex-shrink-0 px-4">
                 <Link href="/">
                     <div className="text-white text-lg font-bold flex flex-row gap-4 items-center justify-between">
-                        <img src='/zipdata.jpg' alt="ZipData Logo" className={`${isMobile ? 'w-200' : 'w-100'} h-20 mb-4 mx-auto rounded-3xl`} />
+                        <img src='/opendatagh.jpg' alt="ZipData Logo" className={`${isMobile ? 'w-200' : 'w-100'} h-20 mb-4 mx-auto rounded-3xl`} />
                     </div>
                 </Link>
             </div>
@@ -103,7 +103,7 @@ export default function DashboardLayout({ user, header, children }: DashboardLay
                     {renderNavigationItems(navigation, isMobile)}
                 </div>
 
-                <a href='https://wa.me/233548471118' className="w-[200px] ml-3 text-left mt-10 px-2 py-2 text-sm font-bold rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors">
+                <a href='https://wa.me/233547508830' className="w-[200px] ml-3 text-left mt-10 px-2 py-2 text-sm font-bold rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors">
                     WhatsApp Us
                 </a>
 

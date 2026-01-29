@@ -153,9 +153,8 @@ export default function Wallet({ auth, transactions }: WalletPageProps) {
               />
               <button
                 type="submit"
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded font-semibold">
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded font-semibold"
                 disabled={isAdding || !addAmount}
-                
               >
                 {isAdding ? 'Processing...' : 'Top Up'}
               </button>
@@ -176,10 +175,10 @@ export default function Wallet({ auth, transactions }: WalletPageProps) {
               GHS {auth.user.wallet_balance}
             </p>
           </div>
-          {auth.user.role !== 'dealer' && (
+          {auth.user.role !== 'admin' && (
             <button
               onClick={() => setShowAddModal(true)}
-              className="bg-white text-red-600 px-4 py-2 rounded hover:bg-gray-100 w-full sm:w-auto font-semibold">
+              className="bg-white text-red-600 px-4 py-2 rounded hover:bg-gray-100 w-full sm:w-auto font-semibold"
             >
               Top Up Wallet
             </button>
@@ -237,7 +236,7 @@ export default function Wallet({ auth, transactions }: WalletPageProps) {
                           <button
                             onClick={() => handleVerifyPayment(tx.reference, tx.id)}
                             disabled={verifyingTx === tx.id}
-                            className="bg-yellow-600 hover:bg-yellow-700 disabled:bg-gray-400 text-white px-3 py-1 rounded text-xs font-semibold">
+                            className="bg-yellow-600 hover:bg-yellow-700 disabled:bg-gray-400 text-white px-3 py-1 rounded text-xs font-semibold"
                           >
                             {verifyingTx === tx.id ? 'Verifying...' : 'Verify Payment'}
                           </button>

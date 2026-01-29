@@ -138,7 +138,7 @@ class DashboardController extends Controller
     public function addToWallet(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:1',
+            'amount' => 'required|numeric|min:10',
         ]);
 
         $user = auth()->user();

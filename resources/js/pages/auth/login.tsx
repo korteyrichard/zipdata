@@ -29,7 +29,7 @@ export default function Login() {
                 <div className="bg-white rounded-lg shadow-lg p-8">
                     <div className="flex flex-col items-center mb-8">
                         <div className="bg-blue-900 p-4 rounded-lg mb-6">
-                            <img src='/zipdata.jpg' alt="Logo" className="w-40 h-20" />
+                            <img src='/opendatagh.jpg' alt="Logo" className="w-40 h-20" />
                         </div>
                     </div>
                     <form onSubmit={submit} className="space-y-4">

@@ -25,14 +25,20 @@ interface Transaction {
 }
 
 interface AdminDashboardProps extends PageProps {
-  users: User[];
-  products: Product[];
-  orders: Order[];
-  transactions: Transaction[];
-  todayUsers: User[];
-  todayOrders: Order[];
-  todayTransactions: Transaction[];
+  usersCount: number;
+  productsCount: number;
+  ordersCount: number;
+  transactionsCount: number;
+  todayUsersCount: number;
+  todayOrdersCount: number;
+  todayTransactionsCount: number;
   orderPusherEnabled: boolean;
+  topUsers: Array<{
+    id: number;
+    name: string;
+    email: string;
+    wallet_balance: number;
+  }>;
 }
 
 const StatCard = ({ title, value, gradient }: { title: string; value: number | string; gradient: string }) => (
@@ -43,14 +49,15 @@ const StatCard = ({ title, value, gradient }: { title: string; value: number | s
 );
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({
-  users,
-  products,
-  orders,
-  transactions,
-  todayUsers,
-  todayOrders,
-  todayTransactions,
+  usersCount,
+  productsCount,
+  ordersCount,
+  transactionsCount,
+  todayUsersCount,
+  todayOrdersCount,
+  todayTransactionsCount,
   orderPusherEnabled,
+  topUsers,
 }) => {
   const { auth } = usePage<AdminDashboardProps>().props;
 
@@ -72,10 +79,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
         <section>
           <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Overall Summary</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <StatCard title="Total Users" value={users.length} gradient="bg-gradient-to-br from-blue-500 to-blue-600" />
-            <StatCard title="Total Products" value={products.length} gradient="bg-gradient-to-br from-emerald-500 to-emerald-600" />
-            <StatCard title="Total Orders" value={orders.length} gradient="bg-gradient-to-br from-purple-500 to-purple-600" />
-            <StatCard title="Total Transactions" value={transactions.length} gradient="bg-gradient-to-br from-orange-500 to-orange-600" />
+            <StatCard title="Total Users" value={usersCount} gradient="bg-gradient-to-br from-blue-500 to-blue-600" />
+            <StatCard title="Total Products" value={productsCount} gradient="bg-gradient-to-br from-emerald-500 to-emerald-600" />
+            <StatCard title="Total Orders" value={ordersCount} gradient="bg-gradient-to-br from-purple-500 to-purple-600" />
+            <StatCard title="Total Transactions" value={transactionsCount} gradient="bg-gradient-to-br from-orange-500 to-orange-600" />
           </div>
         </section>
 
@@ -83,9 +90,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
         <section>
           <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Today's Statistics</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <StatCard title="New Users Today" value={todayUsers.length} gradient="bg-gradient-to-br from-cyan-500 to-cyan-600" />
-            <StatCard title="Orders Today" value={todayOrders.length} gradient="bg-gradient-to-br from-pink-500 to-pink-600" />
-            <StatCard title="Transactions Today" value={todayTransactions.length} gradient="bg-gradient-to-br from-indigo-500 to-indigo-600" />
+            <StatCard title="New Users Today" value={todayUsersCount} gradient="bg-gradient-to-br from-cyan-500 to-cyan-600" />
+            <StatCard title="Orders Today" value={todayOrdersCount} gradient="bg-gradient-to-br from-pink-500 to-pink-600" />
+            <StatCard title="Transactions Today" value={todayTransactionsCount} gradient="bg-gradient-to-br from-indigo-500 to-indigo-600" />
           </div>
         </section>
 
@@ -115,6 +122,45 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   />
                 </button>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Top 10 Users by Wallet Balance */}
+        <section>
+          <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Top 10 Users by Wallet Balance</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Rank</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Email</th>
+                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">Wallet Balance</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  {topUsers.map((user, index) => (
+                    <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="text-sm font-bold text-gray-900 dark:text-white">#{index + 1}</span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="text-sm text-gray-900 dark:text-white">{user.name}</span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="text-sm text-gray-600 dark:text-gray-300">{user.email}</span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right">
+                        <span className="text-sm font-semibold text-green-600 dark:text-green-400">
+                          GHS {Number(user.wallet_balance).toFixed(2)}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
